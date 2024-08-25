@@ -11,11 +11,12 @@ describe('Azure DevOps API tests', () => {
     jest.clearAllMocks()
 
     // mock fetch
-    global.fetch = jest.fn(async () =>
-      Promise.resolve({
-        json: async () => Promise.resolve(JSON.parse(adoResponse)),
-        status: 200
-      })
+    global.fetch = jest.fn(
+      async () =>
+        await Promise.resolve({
+          json: async () => await Promise.resolve(JSON.parse(adoResponse)),
+          status: 200
+        })
     ) as jest.Mock
   })
 
@@ -31,7 +32,7 @@ describe('Azure DevOps API tests', () => {
     )
 
     expect(fetch).toHaveBeenCalledWith(
-      `https://dev.azure.com/my-org/my-project/_apis/wit/workitemsbatch?api-version=7.1-preview.1`,
+      'https://dev.azure.com/my-org/my-project/_apis/wit/workitemsbatch?api-version=7.1-preview.1',
       expect.objectContaining({
         headers: expect.objectContaining({
           Authorization: `Basic ${expectedAuth}`
@@ -46,10 +47,11 @@ describe('Azure DevOps API tests', () => {
   })
 
   it('returns undefined on error', async () => {
-    global.fetch = jest.fn(async () =>
-      Promise.resolve({
-        status: 500
-      })
+    global.fetch = jest.fn(
+      async () =>
+        await Promise.resolve({
+          status: 500
+        })
     ) as jest.Mock
 
     const workItems = await getWorkItemsBatch(
@@ -63,8 +65,8 @@ describe('Azure DevOps API tests', () => {
   })
 
   it('returns undefined on catch error', async () => {
-    global.fetch = jest.fn(async () =>
-      Promise.reject(new Error('error'))
+    global.fetch = jest.fn(
+      async () => await Promise.reject(new Error('error'))
     ) as jest.Mock
 
     const workItems = await getWorkItemsBatch(
