@@ -50,6 +50,5 @@ export async function getWorkItemsBatch(
     return workItems
   } catch (error) {
     core.error(`\u001b[48;2;255;0;0mError getting work items: ${error}`)
-    return
   }
 }

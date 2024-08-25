@@ -55,7 +55,7 @@ export async function run(): Promise<void> {
     core.info(`\u001b[35mWork item ids: ${workItemIds}`)
 
     if (workItemIds.length === 0) {
-      core.info(`\u001b[48;2;255;0;0mNo work items found in the release notes`)
+      core.info('\u001b[48;2;255;0;0mNo work items found in the release notes')
       core.setOutput('workItems', '')
       return
     }
@@ -63,7 +63,7 @@ export async function run(): Promise<void> {
     const workItems: WorkItemsBatchResponse | undefined =
       await getWorkItemsBatch(adoPat, adoOrg, adoProject, workItemIds)
 
-    if (!workItems) {
+    if (workItems == null) {
       core.setFailed('Failed to get work item details')
       return
     }
@@ -73,7 +73,7 @@ export async function run(): Promise<void> {
     for (const id of workItemIds) {
       const workItem = workItems.value.find(wi => wi.id === id)
 
-      if (workItem) {
+      if (workItem != null) {
         core.info(
           `\u001b[35mWork item ${id}: ${workItem.fields['System.WorkItemType']} ${workItem.fields['System.Title']} (${workItem.fields['System.State']})`
         )
