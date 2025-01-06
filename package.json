@@ -103,7 +103,7 @@
     "@typescript-eslint/parser": "^8.19.0",
     "@vercel/ncc": "^0.38.3",
     "eslint": "^8.57.1",
-    "eslint-plugin-github": "^v4.10.2",
+    "eslint-plugin-github": "^v5.1.5",
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-jsonc": "^2.18.2",
     "eslint-plugin-prettier": "^5.2.1",
